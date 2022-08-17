@@ -11,7 +11,11 @@ This project is comprised of 5 different screens:
 In each screen, we make different GET/POST request to a custom API.
 This project will is built with programmatic UIKit.
 
-Demo:
+## Onboarding Demo:
 
-![]https://github.com/samisays11/Yummie/blob/main/Demo-Assets/Yummie-Onboarding-Demo.gif)
+![](https://github.com/samisays11/Yummie/blob/main/Demo-Assets/Yummie-Onboarding-Demo.gif)
 
+
+## More Demo:
+
+![](https://github.com/samisays11/Yummie/blob/main/Demo-Assets/Yummie-PlaceOrder-Demo.gif)
