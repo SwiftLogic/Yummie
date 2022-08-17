@@ -9,7 +9,7 @@ This project is comprised of 5 different screens:
 5. Order List
 
 In each screen, we make different GET/POST request to a custom API.
-This project will is built with programmatic UIKit.
+This project was built with programmatic UIKit.
 
 ## Onboarding Demo:
 
