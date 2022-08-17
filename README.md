@@ -13,5 +13,5 @@ This project will is built with programmatic UIKit.
 
 Demo:
 
-Coming soon...
+![]https://github.com/samisays11/Yummie/blob/main/Demo-Assets/Yummie-Onboarding-Demo.gif)
 
