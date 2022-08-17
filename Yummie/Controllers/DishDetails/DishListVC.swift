@@ -183,7 +183,6 @@ extension DishListVC: UICollectionViewDelegate, UICollectionViewDataSource, UICo
             navigationController?.navigationBar.layer.shadowOpacity = 0.4
         } else {
             navigationController?.navigationBar.layer.shadowOpacity = 0
-            navigationController?.navigationBar.isTranslucent = false
         }
     }
     

@@ -5,12 +5,6 @@
 //  Created by Osaretin Uyigue on 7/22/21.
 //
 
-//
-//  CollectionViewCell
-//
-//  Created by Osaretin Uyigue on 4/29/19.
-//  Copyright © 2019 Osaretin Uyigue. All rights reserved.
-//
 
 import UIKit
 class ChefSpecialCell: UICollectionViewCell {
@@ -101,7 +95,6 @@ class ChefSpecialCell: UICollectionViewCell {
         stackView.anchor(top: dishImageView.topAnchor, leading: dishImageView.trailingAnchor, bottom: dishImageView.bottomAnchor, trailing: trailingAnchor, padding: .init(top: 4, left: 10, bottom: 4, right: 16))
         
         
-        dishImageView.backgroundColor = .red
        setUpShadowView()
     }
     
@@ -139,8 +132,6 @@ class ChefSpecialCell: UICollectionViewCell {
     }
     
     
-    
-    //MARK: - Code Was Created by SamiSays11. Copyright © 2019 SamiSays11 All rights reserved.
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

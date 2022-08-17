@@ -16,23 +16,7 @@ class HomeVC: UIViewController {
         view.backgroundColor = .white
         setUpViews()
         setUpNavBar()
-        
-        
-        ProgressHUD.show()
-        NetworkingService.shared.fetchAllCategories { [weak self] result in
-            
-            switch result {
-            case .success(let allDishes):
-                ProgressHUD.dismiss()
-                //update data
-                self?.categories = allDishes.categories ?? []
-                self?.popularDishes = allDishes.populars ?? []
-                self?.chefSpecials = allDishes.specials ?? []
-                self?.collectionView.reloadData()
-            case .failure(let error):
-                ProgressHUD.showError(error.localizedDescription)
-            }
-        }
+        handleFetchData()
     }
     
     
@@ -43,10 +27,16 @@ class HomeVC: UIViewController {
         navigationController?.navigationBar.layer.shadowOpacity = 0
     }
     
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.navigationBar.layer.shadowOpacity = 0
+
+    }
     //MARK: - Properties
    
     
-    var categories: [DishCategory] = [
+   fileprivate  var categories: [DishCategory] = [
 //        .init(id: "id1", name: "African Dishes", image: "https://picsum.photos/100/200"),
 //        .init(id: "id2", name: "American Dishes", image: "https://picsum.photos/100/200"),
 //        .init(id: "id3", name: "Italian Dishes", image: "https://picsum.photos/100/200"),
@@ -59,14 +49,14 @@ class HomeVC: UIViewController {
     
     
     
-    var popularDishes: [Dish] = [
+    fileprivate  var popularDishes: [Dish] = [
 //        .init(id: "id1", name: "Garri", description: "This is the best I have ever tasted", image: "https://picsum.photos/100/200", calories: 34),
 //        .init(id: "id2", name: "Indomie", description: "This is the best I have ever tasted", image: "https://picsum.photos/100/200", calories: 11),
 //        .init(id: "id3", name: "Pizza", description: "This is the best I have ever tasted", image: "https://picsum.photos/100/200", calories: 78),
 //        .init(id: "id4", name: "Spaghetti", description: "This is the best I have ever tasted", image: "https://picsum.photos/100/200", calories: 28)
     ]
     
-    var chefSpecials: [Dish] = [
+    fileprivate  var chefSpecials: [Dish] = [
 //        .init(id: "id1", name: "Fried Plantain", description: "This is one of chef osa's fav dishes.", image: "https://picsum.photos/100/200", calories: 34),
 //        
 //        .init(id: "id2", name: "Amala & Ewedu", description: "This is the best yoruba food you'll ever taste", image: "https://picsum.photos/100/200", calories: 11),
@@ -83,6 +73,7 @@ class HomeVC: UIViewController {
         collectionView.backgroundColor = APP_BACKGROUND_COLOR
         collectionView.contentInset = .init(top: 12, left: 0, bottom: 12, right: 12)
         collectionView.scrollIndicatorInsets = .init(top: 12, left: 0, bottom: 12, right: 0)
+        collectionView.showsVerticalScrollIndicator = false 
         return collectionView
     }()
     
@@ -128,16 +119,9 @@ class HomeVC: UIViewController {
     fileprivate func setUpNavBar() {
         navigationItem.title = "Yummie"
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: cartsButton)
-        
         navigationController?.setNavigationBarBorderColor(.clear) //removes navline
-        
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .done, target: self, action: nil)
-        
-        
-        
         navigationController?.navigationBar.barTintColor = .white
-        navigationController?.navigationBar.isTranslucent = false
-
 
     }
     
@@ -146,11 +130,33 @@ class HomeVC: UIViewController {
     fileprivate func didSelectDishCategory(category: DishCategory) {
         let dishListVC = DishListVC(mode: .dishListMode, category: category)
         navigationController?.pushViewController(dishListVC, animated: true)
+
     }
     
-   @objc  fileprivate func handleDidTapRightNavItem() {
-    let dishListVC = DishListVC(mode: .dishOrderMode)
+    @objc  fileprivate func handleDidTapRightNavItem() {
+        let dishListVC = DishListVC(mode: .dishOrderMode)
         navigationController?.pushViewController(dishListVC, animated: true)
+        
+    }
+    
+    
+    
+    fileprivate func handleFetchData() {
+        ProgressHUD.show()
+        NetworkingService.shared.fetchAllCategories { [weak self] result in
+            
+            switch result {
+            case .success(let allDishes):
+                ProgressHUD.dismiss()
+                //update data
+                self?.categories = allDishes.categories ?? []
+                self?.popularDishes = allDishes.populars ?? []
+                self?.chefSpecials = allDishes.specials ?? []
+                self?.collectionView.reloadData()
+            case .failure(let error):
+                ProgressHUD.showError(error.localizedDescription)
+            }
+        }
     }
 }
 
@@ -220,7 +226,6 @@ extension HomeVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollec
             navigationController?.navigationBar.layer.shadowOpacity = 0.4
         } else {
             navigationController?.navigationBar.layer.shadowOpacity = 0
-            navigationController?.navigationBar.isTranslucent = false
         }
     }
     
